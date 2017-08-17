@@ -44,5 +44,44 @@ namespace TestSuite
             Point p = new Point(3, 7);
             Assert.IsTrue(p.Equals(p));
         }
+
+        [TestMethod]
+        public void Point_SymmetricTest()
+        {
+            Point p1 = new Point(3, 7);
+            Point p2 = new Point(3, 7);
+            Assert.IsTrue(p1.Equals(p2) == p2.Equals(p1));
+        }
+
+        [TestMethod]
+        public void Point_TransitiveTest()
+        {
+            Point p1 = new Point(3, 7);
+            Point p2 = new Point(3, 7);
+            Point p3 = new Point(3, 7);
+            Assert.IsTrue(p1.Equals(p2));
+            Assert.IsTrue(p2.Equals(p3));
+            Assert.IsTrue(p1.Equals(p3));
+        }
+
+        [TestMethod]
+        public void SimpleCacheTest()
+        {
+            SimpleCache cache = new SimpleCache();
+            cache.Add("point1", new Point(1, 2));
+            Assert.IsNotNull(cache["point1"]);
+            Assert.IsNotNull(cache.Get("point1"));
+            Assert.IsNotNull(cache.Get<Point>("point1"));
+
+            cache.Update("point1", new Point(2, 3));
+            Assert.IsTrue(new Point(2, 3).Equals((Point)cache["point1"]));
+
+            cache.Remove("point1");
+            Assert.IsNull(cache["point1"]);
+
+            cache.Add("point1", new Point(1, 2));
+            cache.Clear();
+            Assert.IsNull(cache["point1"]);
+        }
     }
 }

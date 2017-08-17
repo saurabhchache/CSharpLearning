@@ -50,7 +50,7 @@ namespace Day3Assignments
 
             if (_cache.ContainsKey(key))
             {
-                throw new ArgumentException("An item with the same key has already been added");
+                throw new ArgumentException("An item with the same key has already been added.");
             }
             else
             {
